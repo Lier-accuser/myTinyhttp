@@ -123,24 +123,24 @@ void execute_cgi(int client, const char* path, const char* method, const char* s
     int status;
     int i;
     char c;
-    int numchars = 1;
+    int num = 1;
     int content_length = -1;
  
     buf[0] = 'A'; buf[1] = '\0';
     //如果是 http 请求是 GET 方法的话读取并忽略请求剩下的内容
     if(strcasecmp(method, "GET") == 0){
-        while ((numchars > 0) && strcmp("\n", buf)){  
-            numchars = get_line(client, buf, sizeof(buf));
+        while ((num > 0) && strcmp("\n", buf)){  
+            num = get_line(client, buf, sizeof(buf));
         }
     }
     else{   // POST 
-        numchars = get_line(client, buf, sizeof(buf));
-        while ((numchars > 0) && strcmp("\n", buf)){
+        num = get_line(client, buf, sizeof(buf));
+        while ((num > 0) && strcmp("\n", buf)){
             buf[15] = '\0';
             if(strcasecmp(buf, "Content-Length:") == 0){
                 content_length = atoi(&(buf[16]));
             }
-            numchars = get_line(client, buf, sizeof(buf));
+            num = get_line(client, buf, sizeof(buf));
         }
         if(content_length == -1) {
             bad_request(client);
@@ -373,7 +373,7 @@ int main(void){
         port = ntohs(server_name.sin_port);
     }
     if(listen(server_sock, 5)<0) error_die("listen");
-    printf("httpd running on port %d\n", port);
+    printf("Http running on port: %d\n", port);
 
     while(1){
         client_sock = accept(server_sock,(struct sockaddr*)&client_name,&addr_len);

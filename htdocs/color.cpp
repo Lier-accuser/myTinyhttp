@@ -13,7 +13,8 @@ int main(){
     int flag=-1;
     cout<<"Content-Type: text/html\r\n"<<endl;
     cout<<"<HTML><TITLE>Have the page color changed?</TITLE>"<<endl;
-    cout<<"<BODY><p>the page color is:"<<endl;
+    cout<<"<BODY><H1>Ohhhhhhhhhhh!!!</H1>"<<endl;
+    cout<<"<p>Now the page color is:</p>"<<endl;
 
     if((data=getenv("QUERY_STRING"))!=NULL){  // get·½·¨
         while(*data != '=') data ++;
